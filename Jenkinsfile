@@ -1,14 +1,14 @@
 @Library('libpipelines@master') _
 
 hose {
-    EMAIL = 'eos@stratio.com'
-    MODULE = 'capsule'
-    REPOSITORY = 'capsule'
-    PKGMODULESNAMES = ['capsule']
+    EMAIL = 'eos'
     BUILDTOOL = 'make'
-    NEW_VERSIONING = 'true'
+    VERSIONING_TYPE = 'stratioVersion-3-3'
+    UPSTREAM_VERSION = '2.0.2'
+    DEPLOYONPRS = true
     DEVTIMEOUT = 30
     ANCHORE_POLICY = "production"
+    GRYPE_TEST = false
 
     DEV = { config ->
         doUT(config)
