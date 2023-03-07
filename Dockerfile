@@ -50,6 +50,14 @@ ENTRYPOINT [ "/start.sh", "/workspace/manager" ]
 FROM alpine:3.11
 WORKDIR /
 COPY --from=builder /workspace/manager .
-# Use uid of nonroot user (65532) because kubernetes expects numeric user when applying pod security policies
-USER 65532
+
+# add new user
+ARG USER=nonroot
+ENV HOME /home/$USER
+RUN adduser -D $USER \
+        && mkdir -p /etc/sudoers.d \
+        && echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
+        && chmod 0440 /etc/sudoers.d/$USER
+USER $USER:$USER
+
 ENTRYPOINT ["/manager"]
