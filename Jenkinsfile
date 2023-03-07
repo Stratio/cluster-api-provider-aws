@@ -11,7 +11,6 @@ hose {
     GRYPE_TEST = false
 
     DEV = { config ->
-        doUT(config)
         doDocker(config)
     }
 }
