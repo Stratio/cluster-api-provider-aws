@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.3-0.1.0 (2023-06-01)
+## 2.1.4-0.4.0 (upcoming)
 
 * Fix EKSControlPlaneReconciliationFailed When OIDC Already Exists with non https
 
