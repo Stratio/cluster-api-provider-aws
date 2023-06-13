@@ -31,15 +31,9 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 ENTRYPOINT [ "/start.sh", "/workspace/manager" ]
 
 # Copy the controller-manager into a thin image
-FROM alpine:3.11
+FROM alpine:3.17
 WORKDIR /
 COPY --from=builder /workspace/manager .
-# add new user
-ARG USER=nonroot
-ENV HOME /home/$USER
-RUN adduser -D $USER \
-        && mkdir -p /etc/sudoers.d \
-        && echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER \
-        && chmod 0440 /etc/sudoers.d/$USER
-USER 1000
+# Use uid of nonroot user (65532) because kubernetes expects numeric user when applying pod security policies
+USER 65532
 ENTRYPOINT ["/manager"]
