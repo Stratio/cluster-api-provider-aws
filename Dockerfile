@@ -32,6 +32,7 @@ ENTRYPOINT [ "/start.sh", "/workspace/manager" ]
 
 # Copy the controller-manager into a thin image
 FROM alpine:3.18
+RUN apk update && apk add --upgrade libcrypto3 libssl3
 WORKDIR /
 COPY --from=builder /workspace/manager .
 # Use uid of nonroot user (65532) because kubernetes expects numeric user when applying pod security policies
