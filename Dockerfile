@@ -31,7 +31,8 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 ENTRYPOINT [ "/start.sh", "/workspace/manager" ]
 
 # Copy the controller-manager into a thin image
-FROM alpine:3.18
+FROM alpine:3.18.0
+# Fix CVE-2023-2650, remove when alpine 3.18.1 is released
 RUN apk update && apk add --upgrade libcrypto3 libssl3
 WORKDIR /
 COPY --from=builder /workspace/manager .
