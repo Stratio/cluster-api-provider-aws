@@ -31,7 +31,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 ENTRYPOINT [ "/start.sh", "/workspace/manager" ]
 
 # Copy the controller-manager into a thin image
-FROM alpine:3.17
+FROM alpine:3.18
 WORKDIR /
 COPY --from=builder /workspace/manager .
 # Use uid of nonroot user (65532) because kubernetes expects numeric user when applying pod security policies
